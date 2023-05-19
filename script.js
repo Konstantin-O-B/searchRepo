@@ -30,25 +30,22 @@ function callFetch() {
         if (!res.ok) {throw new Error('Ошибка запроса')}
         return res.json()})
     .then((data) => {
-      console.log(data);
       for (key in data) {
         if (key === "items") {
           arrayItems = data[key];
         }
       }
       search__results.style.display = "flex";
-      /* console.log(arrayItems); */
       search__resultsUL.innerHTML = "";
       if (!data.total_count) {
         search__resultsUL.innerHTML = `<li>${"not found"}</li>`;
       }
       arrayItems.forEach((element) => {
-        search__resultsUL.innerHTML += `<li>${element.name}</li>`;
+        search__resultsUL.innerHTML += `<li data-id=${element.id}>${element.name}</li>`;
       });
     })
     .catch((err) => alert(err));
 }
-/* console.log(search__resultsUL); */
 
 function addRepoCard(element) {
   results__list.insertAdjacentHTML(
@@ -70,16 +67,13 @@ function addRepoCard(element) {
 let counterCards = 0;
 inp.addEventListener("keyup", debounce(callFetch, 200));
 search__resultsUL.addEventListener("click", function (event) {
-/*   console.log(results__list); */
-
   arrayItems.forEach((element) => {
     if (counterCards === 3) {
       return;
     }
-    if (element.name === event.target.textContent) {
+    if (String(element.id) === event.target.dataset.id) {
       counterCards++;
       addRepoCard(element);
-/*       console.log(element); */
     }
   });
 });
