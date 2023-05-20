@@ -14,11 +14,12 @@ let arrayItems = [];
 const search__results = document.querySelector(".search__results");
 const search__resultsUL = search__results.querySelector("ul");
 const results__list = document.querySelector(".results__list");
+let input = document.querySelector("input");
 
 let resultItem;
 
 function callFetch() {
-  const inputValue = document.querySelector("input").value.trim();
+  const inputValue = input.value.trim();
   if (!inputValue) {
     search__results.style.display = "none";
     return;
