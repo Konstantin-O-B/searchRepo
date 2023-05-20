@@ -15,11 +15,11 @@ const search__results = document.querySelector(".search__results");
 const search__resultsUL = search__results.querySelector("ul");
 const results__list = document.querySelector(".results__list");
 let input = document.querySelector("input");
-
 let resultItem;
 
 function callFetch() {
-  const inputValue = input.value.trim();
+  let inputValue = input.value.trim();
+  
   if (!inputValue) {
     search__results.style.display = "none";
     return;
@@ -67,18 +67,21 @@ function addRepoCard(element) {
 
 let counterCards = 0;
 inp.addEventListener("input", debounce(callFetch, 200));
-search__resultsUL.addEventListener("click", function (event) {
+let add = search__resultsUL.addEventListener("click", function (event) {
+  console.log(event);
+
   arrayItems.forEach((element) => {
     if (counterCards === 3) {
       return;
     }
     if (String(element.id) === event.target.dataset.id) {
+
       counterCards++;
       addRepoCard(element);
     }
   });
- input.value = '';
- search__results.style.display = "none";
+  input.value = '';
+  search__results.style.display = "none";
 });
 
 results__list.addEventListener("click", function (event) {
