@@ -65,7 +65,7 @@ function addRepoCard(element) {
 }
 
 let counterCards = 0;
-inp.addEventListener("keyup", debounce(callFetch, 200));
+inp.addEventListener("input", debounce(callFetch, 200));
 search__resultsUL.addEventListener("click", function (event) {
   arrayItems.forEach((element) => {
     if (counterCards === 3) {
@@ -76,6 +76,8 @@ search__resultsUL.addEventListener("click", function (event) {
       addRepoCard(element);
     }
   });
+ input.value = '';
+ search__results.style.display = "none";
 });
 
 results__list.addEventListener("click", function (event) {
